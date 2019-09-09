@@ -4,7 +4,8 @@
             <div class="card-{{i+1}}" [ngClass]="{'disable': !item.selected && isSelectOffer}">
                 <h3>{{item.type}}</h3>
                 <div class="card-container">
-                    <h4>{{item.price}}</h4>
+                    <h4 *ngIf="!item.selected">{{item.price}}</h4>
+                    <h4 *ngIf="item.selected">BOUGHT!</h4>
                     <p>{{item.detail}}</p>
                     <div *ngIf="!item.selected" class="button" (click)="selectOffer(item, true)">BUY</div>
                     <div *ngIf="item.selected" class="button" (click)="selectOffer(item, false)">CANCEL</div>
