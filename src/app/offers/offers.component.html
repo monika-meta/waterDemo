@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="row mt-5 justify-content-center d-flex align-items-center main_block">
+        <div class="col col-md-12 col-lg-6 offer-{{i+1}}" *ngFor=" let item of pageOffersData; let i = index">
+            <div class="card-{{i+1}}" [ngClass]="{'disable': !item.selected && isSelectOffer}">
+                <h3>{{item.type}}</h3>
+                <div class="card-container">
+                    <h4>{{item.price}}</h4>
+                    <p>{{item.detail}}</p>
+                    <div *ngIf="!item.selected" class="button" (click)="selectOffer(item, true)">BUY</div>
+                    <div *ngIf="item.selected" class="button" (click)="selectOffer(item, false)">CANCEL</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

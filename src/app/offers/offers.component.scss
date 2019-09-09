@@ -1,0 +1,62 @@
+$cardColors : #8b68ee , #ee3541;
+@mixin alpha-background-color($color, $background) {
+    $percent: alpha($color) * 100%;
+    $opaque: opacify($color, 0.3);
+    $solid-color: mix($opaque, $background, $percent);
+    background-color: $solid-color !important;
+  }
+.main_block{
+    @each $cardColor in $cardColors {
+        $i: index($cardColors, $cardColor); 
+    .offer-#{$i}:nth-child(#{$i}n){
+            .card-#{$i} { 
+                background-color: $cardColor !important;
+                padding: 15px;
+                color: #fff;
+                justify-content: center;
+                text-align: center;
+       
+                h3 {
+                    text-align: left;   
+                    font-weight: 400;
+                }
+                .card-container {
+                    text-align: center;
+                    justify-content: center;
+                    position: relative;
+
+                    h4{
+                        font-size: 75px;
+                        font-weight: 400;
+                        padding: 10px 0;
+            
+                    }
+                    p{
+                        font-size: 20px;
+                        min-height: 2.9em;
+                    }
+                    .button{
+                        left: 50%;
+                        padding: 10px 10px;
+                        border-radius: 4px;
+                        background-color: white;
+                        color: aquamarine;
+                        width: 20%;
+                        margin-left: 40%;
+                        min-width: 100px;
+                        cursor: pointer;
+                        text-align: center;
+                    }
+                }
+            }
+            .card-#{$i}.disable{
+                @include alpha-background-color(rgba($cardColor, 0.5), white);
+            }
+         
+        }
+
+    }
+
+  
+
+}
