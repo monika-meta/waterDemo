@@ -5,8 +5,8 @@ import { RouterModule} from '@angular/router'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { OffersService } from '../services/offers.service';
 import { Offer } from '../models/offer'
-
 import { from } from 'rxjs';
+
 describe('OffersComponent', () => {
   let component: OffersComponent;
   let fixture: ComponentFixture<OffersComponent>;
@@ -29,7 +29,7 @@ describe('OffersComponent', () => {
     mockOffer =  {
       id: 1,
       type: "STARTER",
-      price: "$1",
+      price: 1,
       detail: "Starter features for your business to grow.",
       selected: false,
       category: 1
