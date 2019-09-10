@@ -1,24 +1,24 @@
-$cardColors : #8b68ee , #ee3541;
-@mixin alpha-background-color($color, $background) {
-    $percent: alpha($color) * 100%;
-    $opaque: opacify($color, 0.3);
-    $solid-color: mix($opaque, $background, $percent);
-    background-color: $solid-color !important;
-  }
-.main_block{
+$cardColors : #979797, #3b86ff, #8b68ee, #ee3541;
+@mixin setColor {
     @each $cardColor in $cardColors {
-        $i: index($cardColors, $cardColor); 
-    .offer-#{$i}:nth-child(#{$i}n){
-            .card-#{$i} { 
-                background-color: $cardColor !important;
+        $i: index($cardColors, $cardColor) ; 
+        &.test-#{$i}{
+            background: #{$cardColor}
+        }
+    }
+}
+.main_block{
+    .offer{
+            .card{ 
                 padding: 15px;
-                color: #fff;
                 justify-content: center;
                 text-align: center;
-       
+                color: white;
+                margin-bottom: 10px;
                 h3 {
                     text-align: left;   
                     font-weight: 400;
+                    font-size:28px;
                 }
                 .card-container {
                     text-align: center;
@@ -26,7 +26,7 @@ $cardColors : #8b68ee , #ee3541;
                     position: relative;
 
                     h4{
-                        font-size: 75px;
+                        font-size: 72px;
                         font-weight: 400;
                         padding: 10px 0;
             
@@ -36,27 +36,26 @@ $cardColors : #8b68ee , #ee3541;
                         min-height: 2.9em;
                     }
                     .button{
-                        left: 50%;
-                        padding: 10px 10px;
+                        display: inline-block;
+                        padding: 7px 10px;
                         border-radius: 4px;
                         background-color: white;
-                        color: aquamarine;
-                        width: 20%;
-                        margin-left: 40%;
-                        min-width: 100px;
+                        color: #5696ff;
                         cursor: pointer;
                         text-align: center;
+                        min-width:120px;
+                        cursor: pointer;
+
                     }
                 }
+                @include setColor();
+
             }
-            .card-#{$i}.disable{
-                @include alpha-background-color(rgba($cardColor, 0.5), white);
-            }
+            .card.disable{
+                opacity: 0.5;
+                pointer-events: none;            }
+
          
         }
-
-    }
-
-  
 
 }

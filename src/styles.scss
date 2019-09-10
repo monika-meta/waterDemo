@@ -26,3 +26,13 @@ body {
   }
 
 
+@media(max-width:800px){
+.main_block {.col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+&.offer:not(:last-child){
+  margin-bottom: 30px;
+}
+}
+}
+}

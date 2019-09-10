@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OffersService } from '../offers.service';
+import { OffersService } from '../services/offers.service';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
-
+import { Offer } from '../models/offer'
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html',
@@ -10,9 +10,10 @@ import { forkJoin } from 'rxjs';
 })
 export class OffersComponent implements OnInit {
   pageType: String;
-  pageOffersData: Object;
-  allOfferData: any;
+  pageOffersData: Offer[];
+  allOfferData: Offer[];
   isSelectOffer: boolean
+  selectedOffterID: number
   constructor(private route: ActivatedRoute, public offersService: OffersService) { }
 
   ngOnInit() {
@@ -22,54 +23,40 @@ export class OffersComponent implements OnInit {
   }
 
   getOffersData() {
-    this.offersService.getOffersData().subscribe((data: Array<Object>) => {
+    this.offersService.getOffersData().subscribe((data: Offer[]) => {
       this.allOfferData = data;
       this.pageOffersData = this.pageType == 'one' ? data.filter(data => data['category'] == 1) : data.filter(data => data['category'] == 2);
     })
   }
 
-  selectOffer(offer, isSelect) {
-    if (isSelect) {
-      this.isSelectOffer = true;
-      this.offersService.isSelectOffer = true;
-    } else {
-      this.isSelectOffer = false;
-      this.offersService.isSelectOffer = false
-    }
-    if (isSelect) {
-      this.offersService.getSelectedOffers().subscribe((selectedOffers: any) => {
-        if (selectedOffers.length) {
-          const allObs = forkJoin(...selectedOffers.map(selectedOffer => {
-            selectedOffer.selected = false;
-            return this.offersService.updateOffer(selectedOffer)
-          }));
-          allObs.subscribe(res => {
-            offer.selected = true
-            this.offersService.updateOffer(offer).subscribe((data) => {
-              this.getOffersData();
-            })
-          });
-        } else {
-          offer.selected = true
-          this.offersService.updateOffer(offer).subscribe((data) => {
-            this.getOffersData();
-          })
-        }
-      })
-    } else {
-      this.offersService.getSelectedOffers().subscribe((selectedOffers: any) => {
-        if (selectedOffers.length) {
-          const allObs = forkJoin(...selectedOffers.map(selectedOffer => {
-
-            selectedOffer.selected = false;
-            return this.offersService.updateOffer(selectedOffer)
-          }));
-          allObs.subscribe(res => {
-            this.getOffersData();
-          });
-        }
-      });
-
-    }
+  deselectSelectedOffer() {
+    this.offersService.getSelectedOffers().subscribe((selectedOffers: Offer[]) => {
+      if (selectedOffers.length) {
+        selectedOffers[0].selected = false;
+        this.updateOffer(selectedOffers[0]);
+      }
+    })
   }
+
+  updateOffer(offerData : Offer) {
+    this.offersService.updateOffer(offerData).subscribe((data) => {
+      this.getOffersData();
+    })
+  }
+
+  deselectOffer(offer : Offer) {
+    this.isSelectOffer = false;
+    this.offersService.isSelectOffer = false;
+    offer.selected = false;
+    this.updateOffer(offer)
+  }
+
+  selectOffer(offer : Offer) {
+    this.isSelectOffer = true;
+    this.offersService.isSelectOffer = true;
+    // this.deselectSelectedOffer();
+    offer.selected = true;
+    this.updateOffer(offer);
+  }
+
 }

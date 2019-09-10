@@ -6,11 +6,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OffersComponent } from './offers/offers.component';
-import { DataService } from './data.service'
+import { DataService } from './services/data.service';
+import { HeaderComponent } from './header/header.component'
 @NgModule({
   declarations: [
     AppComponent,
     OffersComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
