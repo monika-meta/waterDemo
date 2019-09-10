@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { OffersComponent } from './offers/offers.component';
 
-
-
 const routes: Routes = [
   {
     path: 'one',

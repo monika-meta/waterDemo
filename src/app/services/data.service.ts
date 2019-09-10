@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import {InMemoryDbService} from 'angular-in-memory-web-api'
-import { offerData } from '../app.config'
+import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { offerData } from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService implements InMemoryDbService{
+export class DataService implements InMemoryDbService {
   constructor() { }
   offers = offerData;
 
-  createDb(){
-    let offers = this.offers;
-    return {offers};
- 
-   }
+  createDb() {
+    const offers = this.offers;
+    return { offers };
+
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {environment} from '../../environments/environment'
-import { Offer } from '../models/offer'
+import { environment } from '../../environments/environment';
+import { Offer } from '../models/offer';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { Offer } from '../models/offer'
 export class OffersService {
 
   SERVER_URL: string = environment.SERVER_URL;
-  isSelectOffer: boolean = false;
+  isSelectOffer = false;
   constructor(private httpClient: HttpClient) { }
 
   public getOffersData() {
@@ -18,8 +18,8 @@ export class OffersService {
   public getSelectedOffers() {
     return this.httpClient.get<Offer[]>(`${this.SERVER_URL + 'offers'}?selected=^true`);
   }
-  public updateOffer(offer : Offer) {
-    return this.httpClient.put(`${this.SERVER_URL + 'offers'}/${offer.id}`, offer)
+  public updateOffer(offer: Offer) {
+    return this.httpClient.put(`${this.SERVER_URL + 'offers'}/${offer.id}`, offer);
   }
 
 }
