@@ -6,10 +6,10 @@
                 <h3>{{item.type}}</h3>
                 <div class="card-container">
                     <h4 *ngIf="!item.selected">${{item.price}}</h4>
-                    <h4 *ngIf="item.selected">BOUGHT!</h4>
+                    <h4 *ngIf="item.selected">{{cardStaticData.BOUGHT}}!</h4>
                     <p>{{item.detail}}</p>
-                    <div *ngIf="!item.selected" class="button" (click)="selectOffer(item)">BUY</div>
-                    <div *ngIf="item.selected" class="button" (click)="deselectOffer(item)">CANCEL</div>
+                    <div *ngIf="!item.selected" class="button" (click)="selectOffer(item)">{{cardStaticData.BUY}}</div>
+                    <div *ngIf="item.selected" class="button" (click)="deselectOffer(item)">{{cardStaticData.CANCEL}}</div>
                 </div>
             </div>
         </div>

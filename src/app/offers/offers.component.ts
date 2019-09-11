@@ -3,6 +3,7 @@ import { OffersService } from '../services/offers.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Offer } from '../models/offer';
+import {CARD_STATIC_DATA} from '../app.config';
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html',
@@ -13,6 +14,7 @@ export class OffersComponent implements OnInit, OnDestroy {
   pageOffersData: Offer[];
   allOfferData: Offer[];
   isSelectOffer: boolean;
+  cardStaticData: object = CARD_STATIC_DATA;
   getOffersDataObservable: Subscription;
   getSelectedOffersObservable: Subscription;
   updateOfferObservable: Subscription;

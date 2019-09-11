@@ -32,3 +32,9 @@ export const offerData = [
         category: 2
     }
 ];
+
+export const CARD_STATIC_DATA = {
+    BOUGHT : 'BOUGHT',
+    BUY : 'BUY',
+    CANCEL : 'CANCEL'
+};
