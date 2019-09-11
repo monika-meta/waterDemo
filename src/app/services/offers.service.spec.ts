@@ -33,7 +33,6 @@ describe('OffersService', () => {
 
   it('should return an Observable<User[]> and request should be GET', () => {
     service.getOffersData().subscribe((offers: Offer[]) => {
-      console.log(offers);
       expect(offers.length).toBe(4);
       expect(offers).toEqual(offerDataMock);
       const req = httpMock.expectOne(`${service.SERVER_URL}/offers`);
