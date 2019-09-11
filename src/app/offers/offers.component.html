@@ -1,15 +1,16 @@
 <div class="container">
     <div class="row mt-5 justify-content-center align-items-center main_block">
         <div class="col col-12 col-sm-12 col-md-6  col-lg-5  offer"
-            *ngFor=" let item of pageOffersData; trackBy: trackByFn">
-            <div class="card test-{{item.id}}" [ngClass]="{'disable': !item.selected && isSelectOffer}">
-                <h3>{{item.type}}</h3>
+            *ngFor=" let offer of offersData; let i = index; trackBy: trackByFn;">
+            
+            <div [appDynamicColorCard]="offer.id"  class="card test-{{offer.id}}"  [ngClass]="{'disable': !offer.selected && offersService.isSelectOffer}">
+                <h3>{{offer.type}}</h3>
                 <div class="card-container">
-                    <h4 *ngIf="!item.selected">${{item.price}}</h4>
-                    <h4 *ngIf="item.selected">{{cardStaticData.BOUGHT}}!</h4>
-                    <p>{{item.detail}}</p>
-                    <div *ngIf="!item.selected" class="button" (click)="selectOffer(item)">{{cardStaticData.BUY}}</div>
-                    <div *ngIf="item.selected" class="button" (click)="deselectOffer(item)">{{cardStaticData.CANCEL}}</div>
+                    <h4 *ngIf="!offer.selected">${{offer.price}}</h4>
+                    <h4 *ngIf="offer.selected">{{cardStaticData.BOUGHT}}!</h4>
+                    <p>{{offer.detail}}</p>
+                    <div *ngIf="!offer.selected" class="button" (click)="selectOffer(offer)">{{cardStaticData.BUY}}</div>
+                    <div *ngIf="offer.selected" class="button" (click)="cancelOffer(offer)">{{cardStaticData.CANCEL}}</div>
                 </div>
             </div>
         </div>

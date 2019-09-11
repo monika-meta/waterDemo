@@ -33,8 +33,3 @@ export const offerData = [
     }
 ];
 
-export const CARD_STATIC_DATA = {
-    BOUGHT : 'BOUGHT',
-    BUY : 'BUY',
-    CANCEL : 'CANCEL'
-};

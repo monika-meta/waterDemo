@@ -3,26 +3,23 @@ import { OffersService } from '../services/offers.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Offer } from '../models/offer';
-import {CARD_STATIC_DATA} from '../app.config';
+import {CARD_STATIC_DATA, CARD_COLORS} from '../app.const';
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html',
   styleUrls: ['./offers.component.scss']
 })
-export class OffersComponent implements OnInit, OnDestroy {
+export class OffersComponent implements OnInit {
   pageType: string;
-  pageOffersData: Offer[];
-  allOfferData: Offer[];
-  isSelectOffer: boolean;
+  offersData: Offer[];
   cardStaticData: object = CARD_STATIC_DATA;
-  getOffersDataObservable: Subscription;
-  getSelectedOffersObservable: Subscription;
-  updateOfferObservable: Subscription;
+  cardColors: object = CARD_COLORS;
+
+
   constructor(private route: ActivatedRoute, public offersService: OffersService) { }
 
   ngOnInit(): void {
     this.pageType = this.route.snapshot.data.type;
-    this.isSelectOffer = this.offersService.isSelectOffer;
     this.getOffersData();
   }
 
@@ -31,10 +28,9 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   getOffersData() {
-    this.getOffersDataObservable = this.offersService.getOffersData()
+    this.offersService.getOffersData()
       .subscribe((data: Offer[]) => {
-        this.allOfferData = data;
-        this.pageOffersData = this.pageType === 'one' ? data.
+        this.offersData = this.pageType === 'one' ? data.
           filter(categoryOne => categoryOne.category === 1) : data
             .filter(categoryTwo => categoryTwo.category === 2);
       },
@@ -43,21 +39,8 @@ export class OffersComponent implements OnInit, OnDestroy {
         });
   }
 
-  deselectSelectedOffer() {
-    this.getSelectedOffersObservable = this.offersService.getSelectedOffers()
-      .subscribe((selectedOffers: Offer[]) => {
-        if (selectedOffers.length) {
-          selectedOffers[0].selected = false;
-          this.updateOffer(selectedOffers[0]);
-        }
-      },
-        (err) => {
-          console.log('error', err);
-        });
-  }
-
-  updateOffer(offerData: Offer) {
-    this.updateOfferObservable = this.offersService.updateOffer(offerData).subscribe((data) => {
+  updateOffer(offerData: Offer, offerId: number) {
+    this.offersService.updateOffer(offerData, offerId).subscribe(() => {
       this.getOffersData();
     },
       (err) => {
@@ -65,29 +48,16 @@ export class OffersComponent implements OnInit, OnDestroy {
       });
   }
 
-  deselectOffer(offer: Offer) {
-    this.isSelectOffer = false;
+  cancelOffer(offer: Offer) {
     this.offersService.isSelectOffer = false;
     offer.selected = false;
-    this.updateOffer(offer);
+    this.updateOffer(offer, offer.id);
   }
 
   selectOffer(offer: Offer) {
-    this.isSelectOffer = true;
     this.offersService.isSelectOffer = true;
     offer.selected = true;
-    this.updateOffer(offer);
+    this.updateOffer(offer, offer.id);
   }
 
-  ngOnDestroy(): void {
-    if (this.getOffersDataObservable) {
-      this.getOffersDataObservable.unsubscribe();
-    }
-    if (this.getSelectedOffersObservable) {
-      this.getSelectedOffersObservable.unsubscribe();
-    }
-    if (this.updateOfferObservable) {
-      this.updateOfferObservable.unsubscribe();
-    }
-  }
 }

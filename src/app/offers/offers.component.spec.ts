@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OffersComponent } from './offers.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { OffersService } from '../services/offers.service';
 import { Offer } from '../models/offer';
 
@@ -49,16 +49,12 @@ describe('OffersComponent', () => {
     expect(component.getOffersData).toBeTruthy();
   });
 
-  it('should have deselectSelectedOffer', () => {
-    expect(component.deselectSelectedOffer).toBeTruthy();
-  });
-
   it('should have updateOffer', () => {
     expect(component.updateOffer).toBeTruthy();
   });
 
   it('should have deselectOffer', () => {
-    expect(component.deselectOffer).toBeTruthy();
+    expect(component.cancelOffer).toBeTruthy();
   });
 
   it('should have selectOffer', () => {
@@ -74,29 +70,19 @@ describe('OffersComponent', () => {
     });
   });
 
-  it('#deselectSelectedOffer should get selected offers and then it should call update', async () => {
-    // Updating the selected of offer with id 1
-    testService.getSelectedOffers().subscribe(value => {
-      spyOn(component, 'updateOffer');
-      expect(component.updateOffer).toHaveBeenCalled();
-    });
-
-  });
-
   it('#updateOffer should update the offer', async () => {
     // Updating the selected of offer with id 1
     mockOffer.id = 1;
     mockOffer.selected = true;
-    testService.updateOffer(mockOffer).subscribe(value => {
+    testService.updateOffer(mockOffer, mockOffer.id).subscribe(value => {
       expect(value).toEqual(mockOffer);
     });
   });
 
-  it('#deselectOffer should should change selected false and should call updateOffer method', async () => {
+  it('#cancelOffer should should change selected false and should call updateOffer method', async () => {
     spyOn(component, 'updateOffer');
-    component.deselectOffer(mockOffer);
+    component.cancelOffer(mockOffer);
     expect(mockOffer.selected).toEqual(false);
-    expect(component.isSelectOffer).toEqual(false);
     expect(testService.isSelectOffer).toEqual(false);
     expect(component.updateOffer).toHaveBeenCalled();
   });
@@ -105,7 +91,6 @@ describe('OffersComponent', () => {
     spyOn(component, 'updateOffer');
     component.selectOffer(mockOffer);
     expect(mockOffer.selected).toEqual(true);
-    expect(component.isSelectOffer).toEqual(true);
     expect(testService.isSelectOffer).toEqual(true);
     expect(component.updateOffer).toHaveBeenCalled();
   });

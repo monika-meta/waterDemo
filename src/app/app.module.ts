@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { OffersComponent } from './offers/offers.component';
 import { DataService } from './services/data.service';
 import { HeaderComponent } from './header/header.component';
+import { DynamicColorCardDirective } from './directives/dynamic-color-card.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     OffersComponent,
     HeaderComponent,
+    DynamicColorCardDirective,
   ],
   imports: [
     BrowserModule,

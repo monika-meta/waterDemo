@@ -1,8 +1,0 @@
-@mixin setColor {
-    @each $cardColor in $cardColors {
-        $i: index($cardColors, $cardColor) ; 
-        &.test-#{$i}{
-            background: #{$cardColor}
-        }
-    }
-}
