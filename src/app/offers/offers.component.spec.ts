@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { OffersService } from '../services/offers.service';
 import { Offer } from '../models/offer';
+import { DynamicColorCardDirective } from '../directives/dynamic-color-card.directive';
 
 describe('OffersComponent', () => {
   let component: OffersComponent;
@@ -21,7 +22,7 @@ describe('OffersComponent', () => {
         HttpClientTestingModule
 
       ],
-      declarations: [OffersComponent],
+      declarations: [OffersComponent, DynamicColorCardDirective],
       providers: [OffersService],
     }).compileComponents();
     mockOffer = {
@@ -74,7 +75,7 @@ describe('OffersComponent', () => {
     // Updating the selected of offer with id 1
     mockOffer.id = 1;
     mockOffer.selected = true;
-    testService.updateOffer(mockOffer, mockOffer.id).subscribe(value => {
+    testService.updateOffer(mockOffer).subscribe(value => {
       expect(value).toEqual(mockOffer);
     });
   });

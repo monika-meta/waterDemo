@@ -15,8 +15,8 @@ export class OffersService {
   public getOffersData() {
     return this.httpClient.get<Offer[]>(this.SERVER_URL + 'offers');
   }
-  public updateOffer(offer, id: number) {
-    return this.httpClient.put(`${this.SERVER_URL + 'offers'}/${id}`, offer);
+  public updateOffer(offer: Offer) {
+    return this.httpClient.put(`${this.SERVER_URL + 'offers'}/${offer.id}`, offer);
   }
 
 }

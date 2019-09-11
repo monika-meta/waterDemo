@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { OffersService } from '../services/offers.service';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { Offer } from '../models/offer';
-import {CARD_STATIC_DATA, CARD_COLORS} from '../app.const';
+import { CARD_STATIC_DATA, CARD_COLORS } from '../app.const';
 @Component({
   selector: 'app-offers',
   templateUrl: './offers.component.html',
@@ -12,7 +11,7 @@ import {CARD_STATIC_DATA, CARD_COLORS} from '../app.const';
 export class OffersComponent implements OnInit {
   pageType: string;
   offersData: Offer[];
-  cardStaticData: object = CARD_STATIC_DATA;
+  cardStaticData: any = CARD_STATIC_DATA;
   cardColors: object = CARD_COLORS;
 
 
@@ -39,8 +38,8 @@ export class OffersComponent implements OnInit {
         });
   }
 
-  updateOffer(offerData: Offer, offerId: number) {
-    this.offersService.updateOffer(offerData, offerId).subscribe(() => {
+  updateOffer(offerData: Offer) {
+    this.offersService.updateOffer(offerData).subscribe(() => {
       this.getOffersData();
     },
       (err) => {
@@ -51,13 +50,13 @@ export class OffersComponent implements OnInit {
   cancelOffer(offer: Offer) {
     this.offersService.isSelectOffer = false;
     offer.selected = false;
-    this.updateOffer(offer, offer.id);
+    this.updateOffer(offer);
   }
 
   selectOffer(offer: Offer) {
     this.offersService.isSelectOffer = true;
     offer.selected = true;
-    this.updateOffer(offer, offer.id);
+    this.updateOffer(offer);
   }
 
 }
